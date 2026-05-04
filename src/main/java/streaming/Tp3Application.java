@@ -1,4 +1,4 @@
-package unlar.edu.ar.prg3.tp3;
+package streaming;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
