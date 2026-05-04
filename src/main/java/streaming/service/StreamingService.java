@@ -15,13 +15,14 @@ public class StreamingService {
         catalogo.add(cancion);
     }
 
+   // Constructor con tus propios datos
     public StreamingService() {
-        Productora prod = new Productora("EMI");
-        Artista queen = new Artista("Queen", prod);
-        Album nightAtTheOpera = new Album("A Night at the Opera", queen);
+        Productora prod = new Productora("Sony Music");
+        Artista soda = new Artista("Soda Stereo", prod);
+        Album cancionAnimal = new Album("Canción Animal", soda);
         
-        Cancion c1 = new Cancion("Bohemian Rhapsody", queen, nightAtTheOpera, Genero.ROCK, 354, 5.0, java.time.LocalDate.of(1975, 10, 31));
-        Cancion c2 = new Cancion("Love of my Life", queen, nightAtTheOpera, Genero.ROCK, 219, 4.8, java.time.LocalDate.of(1975, 11, 21));
+        Cancion c1 = new Cancion("De Música Ligera", soda, cancionAnimal, Genero.ROCK, 212, 5.0, java.time.LocalDate.of(1990, 8, 7));
+        Cancion c2 = new Cancion("Prófugos", soda, cancionAnimal, Genero.ROCK, 320, 4.9, java.time.LocalDate.of(1986, 11, 10));
         
         catalogo.add(c1);
         catalogo.add(c2);
