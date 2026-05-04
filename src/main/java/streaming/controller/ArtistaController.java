@@ -14,6 +14,12 @@ public class ArtistaController {
 
     // Lista simulada para el ejemplo (en la realidad esto vendría de un ArtistaService)
     private List<Artista> artistas = new ArrayList<>(); 
+    // Constructor para inyectar un artista de prueba al iniciar
+    public ArtistaController() {
+        streaming.model.Productora prod = new streaming.model.Productora("EMI");
+        streaming.model.Artista queen = new streaming.model.Artista("Queen", prod);
+        artistas.add(queen);
+    }
 
     // GET /api/artistas - Listar todos [cite: 142]
     @GetMapping

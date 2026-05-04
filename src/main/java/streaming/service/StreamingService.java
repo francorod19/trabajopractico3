@@ -15,6 +15,17 @@ public class StreamingService {
         catalogo.add(cancion);
     }
 
+    public StreamingService() {
+        Productora prod = new Productora("EMI");
+        Artista queen = new Artista("Queen", prod);
+        Album nightAtTheOpera = new Album("A Night at the Opera", queen);
+        
+        Cancion c1 = new Cancion("Bohemian Rhapsody", queen, nightAtTheOpera, Genero.ROCK, 354, 5.0, java.time.LocalDate.of(1975, 10, 31));
+        Cancion c2 = new Cancion("Love of my Life", queen, nightAtTheOpera, Genero.ROCK, 219, 4.8, java.time.LocalDate.of(1975, 11, 21));
+        
+        catalogo.add(c1);
+        catalogo.add(c2);
+    }
     public List<Cancion> getCatalogo() {
         return catalogo;
     }
