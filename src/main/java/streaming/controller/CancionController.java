@@ -18,25 +18,25 @@ public class CancionController {
         this.service = service;
     }
 
-    // 1. GET /api/canciones - listar todas [cite: 137]
+    
     @GetMapping
     public ResponseEntity<List<Cancion>> listarTodas() {
         return ResponseEntity.ok(service.getCatalogo());
     }
 
-    // 2. GET /api/canciones/{id} - buscar por ID [cite: 138]
+    
     @GetMapping("/{id}")
     public ResponseEntity<Cancion> buscarPorId(@PathVariable String id) {
         Optional<Cancion> cancion = service.getCatalogo().stream()
                 .filter(c -> c.getId().equals(id))
                 .findFirst();
         
-        // Si la encuentra devuelve 200 OK, sino 404 Not Found
+       
         return cancion.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // 3. GET /api/canciones/buscar?titulo=xxx&artista=yyy - búsqueda filtrada [cite: 139]
+    
     @GetMapping("/buscar")
     public ResponseEntity<List<Cancion>> buscar(
             @RequestParam(required = false) String titulo,
@@ -48,12 +48,12 @@ public class CancionController {
                 .toList();
 
         if (resultados.isEmpty()) {
-            return ResponseEntity.noContent().build(); // 204 No Content
+            return ResponseEntity.noContent().build(); 
         }
         return ResponseEntity.ok(resultados);
     }
 
-    // 4. POST /api/canciones/{id}/reproducir - incrementar contador [cite: 140]
+    
     @PostMapping("/{id}/reproducir")
     public ResponseEntity<String> reproducir(@PathVariable String id) {
         Optional<Cancion> cancion = service.getCatalogo().stream()
@@ -61,7 +61,7 @@ public class CancionController {
                 .findFirst();
 
         if (cancion.isPresent()) {
-            cancion.get().reproducir(); // Usa el AtomicInteger de forma segura
+            cancion.get().reproducir(); 
             return ResponseEntity.ok("Reproducción registrada. Total: " + cancion.get().getReproducciones());
         }
         return ResponseEntity.notFound().build();

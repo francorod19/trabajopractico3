@@ -5,14 +5,14 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Cancion {
-    private String id; // UUID String
+    private String id; 
     private String titulo;
-    private Artista artista; // Relación normalizada
-    private Album album; // Relación normalizada
+    private Artista artista; 
+    private Album album;
     private Genero genero;
     private int duracionSegundos;
-    private AtomicInteger reproducciones; // Para concurrencia
-    private double rating; // 0.0 a 5.0
+    private AtomicInteger reproducciones; 
+    private double rating; 
     private LocalDate fechaLanzamiento;
 
     public Cancion(String titulo, Artista artista, Album album, Genero genero, int duracionSegundos, double rating, LocalDate fechaLanzamiento) {
@@ -22,17 +22,17 @@ public class Cancion {
         this.album = album;
         this.genero = genero;
         this.duracionSegundos = duracionSegundos;
-        this.reproducciones = new AtomicInteger(0); // Arranca en 0
+        this.reproducciones = new AtomicInteger(0); 
         this.rating = rating;
         this.fechaLanzamiento = fechaLanzamiento;
     }
 
-    // Método para sumar reproducciones de forma segura en concurrencia
+    
     public void reproducir() {
         this.reproducciones.incrementAndGet();
     }
 
-    // Getters y Setters
+   
     public String getId() { return id; }
     public String getTitulo() { return titulo; }
     public void setTitulo(String titulo) { this.titulo = titulo; }

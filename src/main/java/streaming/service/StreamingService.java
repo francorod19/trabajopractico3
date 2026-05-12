@@ -8,14 +8,14 @@ import java.util.stream.Collectors;
 @Service
 public class StreamingService {
     
-    // Usamos un ArrayList como base de datos en memoria para simplificar [cite: 152]
+    
     private List<Cancion> catalogo = new ArrayList<>();
 
     public void agregarCancion(Cancion cancion) {
         catalogo.add(cancion);
     }
 
-   // Constructor con tus propios datos
+   
     public StreamingService() {
         Productora prod = new Productora("Sony Music");
         Artista soda = new Artista("Soda Stereo", prod);
@@ -31,11 +31,8 @@ public class StreamingService {
         return catalogo;
     }
 
-    // =========================================================================
-    // 2.2 OPERACIONES CON STREAMS API (30%) 
-    // =========================================================================
 
-    // Filtrado compuesto [cite: 111]
+    
     public List<Cancion> filtradoCompuesto(Genero genero, String nombreArtista, int anioInicio, int anioFin, double ratingMinimo) {
         return catalogo.stream()
                 .filter(c -> c.getGenero() == genero)
@@ -45,7 +42,7 @@ public class StreamingService {
                 .toList();
     }
 
-    // Top 10 más reproducidas [cite: 112]
+   
     public List<Cancion> getTop10MasReproducidas() {
         return catalogo.stream()
                 .sorted(Comparator.comparingInt(Cancion::getReproducciones).reversed())
@@ -53,7 +50,7 @@ public class StreamingService {
                 .toList();
     }
 
-    // Estadísticas: Promedio de duración por género [cite: 114]
+    
     public Map<Genero, Double> promedioDuracionPorGenero() {
         return catalogo.stream()
                 .collect(Collectors.groupingBy(
@@ -62,7 +59,7 @@ public class StreamingService {
                 ));
     }
 
-    // Estadísticas: Artista más popular [cite: 115]
+    
     public Optional<Artista> artistaMasPopular() {
         return catalogo.stream()
                 .collect(Collectors.groupingBy(Cancion::getArtista, Collectors.summingInt(Cancion::getReproducciones)))
@@ -71,7 +68,7 @@ public class StreamingService {
                 .map(Map.Entry::getKey);
     }
 
-    // Estadísticas: Distribución por décadas 
+     
     public Map<String, Long> distribucionPorDecadas() {
         return catalogo.stream()
                 .collect(Collectors.groupingBy(
@@ -83,39 +80,36 @@ public class StreamingService {
                 ));
     }
 
-    // Playlist automática (Aproximación Problema de la Mochila con recursión) 
+    
     public List<Cancion> generarPlaylistExacta(int minutosExactos) {
         int segundosObjetivo = minutosExactos * 60;
         List<Cancion> playlist = new ArrayList<>();
         if (buscarCombinacionExacta(catalogo, segundosObjetivo, 0, playlist)) {
             return playlist;
         }
-        return Collections.emptyList(); // Retorna vacío si no hay combinación exacta
+        return Collections.emptyList(); 
     }
 
-    // Método recursivo auxiliar para la mochila
+    
     private boolean buscarCombinacionExacta(List<Cancion> opciones, int segundosRestantes, int indice, List<Cancion> seleccionadas) {
         if (segundosRestantes == 0) return true; // ¡Encontramos el tiempo exacto!
         if (segundosRestantes < 0 || indice >= opciones.size()) return false; // Nos pasamos o no hay más canciones
 
         Cancion actual = opciones.get(indice);
         
-        // Camino 1: Incluir la canción actual
+        
         seleccionadas.add(actual);
         if (buscarCombinacionExacta(opciones, segundosRestantes - actual.getDuracionSegundos(), indice + 1, seleccionadas)) {
             return true;
         }
         
-        // Camino 2 (Backtracking): No incluir la canción y seguir buscando
+        
         seleccionadas.remove(seleccionadas.size() - 1);
         return buscarCombinacionExacta(opciones, segundosRestantes, indice + 1, seleccionadas);
     }
 
-    // =========================================================================
-    // 2.3 ALGORITMOS DE BÚSQUEDA Y ORDENAMIENTO (20%) 
-    // =========================================================================
-
-    // Búsqueda binaria por título 
+    
+   
     public Cancion busquedaBinariaPorTitulo(String tituloBuscado) {
         // Primero preordenamos la lista alfabéticamente por título
         List<Cancion> listaOrdenada = catalogo.stream()
@@ -130,14 +124,14 @@ public class StreamingService {
             Cancion cancionMedio = listaOrdenada.get(medio);
             int comparacion = cancionMedio.getTitulo().compareToIgnoreCase(tituloBuscado);
 
-            if (comparacion == 0) return cancionMedio; // Encontrada
-            if (comparacion < 0) inicio = medio + 1;   // Buscar en la mitad derecha
-            else fin = medio - 1;                      // Buscar en la mitad izquierda
+            if (comparacion == 0) return cancionMedio; 
+            if (comparacion < 0) inicio = medio + 1;   
+            else fin = medio - 1;                      
         }
-        return null; // No encontrada
+        return null; 
     }
 
-    // Ordenamiento personalizado [cite: 124, 125]
+    
     public List<Cancion> ordenamientoPersonalizado() {
         return catalogo.stream()
                 .sorted(Comparator.comparing((Cancion c) -> c.getArtista().getNombre())
@@ -145,10 +139,10 @@ public class StreamingService {
                 .toList();
     }
 
-    // Búsqueda lineal con predicados múltiples [cite: 126]
+    
     public List<Cancion> busquedaLinealMultiple(Genero genero, int anioMayorA, double ratingMayorA) {
         List<Cancion> resultados = new ArrayList<>();
-        // Búsqueda lineal clásica (for tradicional en lugar de Stream para variar el algoritmo)
+        
         for (Cancion c : catalogo) {
             if (c.getGenero() == genero && 
                 c.getFechaLanzamiento().getYear() > anioMayorA && 

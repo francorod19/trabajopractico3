@@ -14,13 +14,13 @@ public class AlbumController {
 
     private List<Album> albumes = new ArrayList<>(); 
 
-    // GET /api/albumes
+    
     @GetMapping
     public ResponseEntity<List<Album>> listarTodos() {
         return ResponseEntity.ok(albumes);
     }
 
-    // GET /api/albumes/{id}
+    
     @GetMapping("/{id}")
     public ResponseEntity<Album> buscarPorId(@PathVariable String id) {
         Optional<Album> album = albumes.stream()
@@ -31,7 +31,7 @@ public class AlbumController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // GET /api/albumes/buscar?titulo=xxx
+    
     @GetMapping("/buscar")
     public ResponseEntity<List<Album>> buscarPorTitulo(@RequestParam String titulo) {
         List<Album> resultados = albumes.stream()

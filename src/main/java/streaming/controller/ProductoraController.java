@@ -14,13 +14,13 @@ public class ProductoraController {
 
     private List<Productora> productoras = new ArrayList<>(); 
 
-    // GET /api/productoras
+    
     @GetMapping
     public ResponseEntity<List<Productora>> listarTodas() {
         return ResponseEntity.ok(productoras);
     }
 
-    // GET /api/productoras/{id}
+    
     @GetMapping("/{id}")
     public ResponseEntity<Productora> buscarPorId(@PathVariable String id) {
         Optional<Productora> productora = productoras.stream()
@@ -31,7 +31,7 @@ public class ProductoraController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // GET /api/productoras/buscar?nombre=xxx
+    
     @GetMapping("/buscar")
     public ResponseEntity<List<Productora>> buscarPorNombre(@RequestParam String nombre) {
         List<Productora> resultados = productoras.stream()
