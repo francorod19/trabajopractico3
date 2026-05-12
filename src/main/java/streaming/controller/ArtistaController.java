@@ -16,9 +16,9 @@ public class ArtistaController {
     private List<Artista> artistas = new ArrayList<>(); 
     
     public ArtistaController() {
-        streaming.model.Productora prod = new streaming.model.Productora("EMI");
-        streaming.model.Artista queen = new streaming.model.Artista("Queen", prod);
-        artistas.add(queen);
+        streaming.model.Productora prod = new streaming.model.Productora("Sony Music");
+        streaming.model.Artista soda = new streaming.model.Artista("Soda Stereo", prod);
+        artistas.add(soda);
     }
 
    
